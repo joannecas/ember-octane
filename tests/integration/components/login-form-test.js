@@ -12,15 +12,18 @@ module('Integration | Component | login-form', function(hooks) {
 
     await render(hbs`<LoginForm />`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <LoginForm>
-        template block text
-      </LoginForm>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.deepEqual(
+      this.element.textContent
+      .trim()
+      .replace(/\s*\n+\s*/g, '\n')
+      .split('\n'), 
+      [
+        'Login',
+        'Select a user',
+        'Testy Testerson',
+        'Sample McData',
+        'A validation message',
+      ]
+    );
   });
 });
